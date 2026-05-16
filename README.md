@@ -1,190 +1,163 @@
 # WireProxy GUI
 
-A simple Windows desktop GUI for running and managing `wireproxy` with a cleaner setup flow.
+A simple Windows desktop application for running a WireGuard configuration through HTTP and SOCKS5 proxies using `wireproxy`.
 
-## What this app does
-
-WireProxy GUI helps users:
-
-- choose a WireGuard `.conf` file
-- configure HTTP and SOCKS5 bind IP and port
-- start and stop `wireproxy` without using terminal commands
-- view live logs inside the app
-- restart and terminate the running process from a simple Windows interface
-
-## Important note
-
-This GUI is a wrapper for `wireproxy`.
-
-It **does not work standalone** by itself.
-The app needs `wireproxy.exe` to be present beside the GUI executable, unless you redesign the project later to embed or reimplement that functionality.
-
-So the normal release package for users should contain both:
-
-- `WireProxyGui.exe`
-- `wireproxy.exe`
+WireProxy GUI is designed for users who want to use a WireGuard connection with selected apps or browsers without routing the whole Windows system through a VPN.
 
 ## Features
 
+- Windows desktop GUI
 - WireGuard `.conf` file selection
-- HTTP proxy bind settings
-- SOCKS5 proxy bind settings
-- **My IP** helper buttons
+- HTTP proxy support
+- SOCKS5 proxy support
+- Local IP detection with **My IP** buttons
 - Run, Restart, and Terminate controls
-- Live logs inside the GUI
-- Open source codebase for future modification
+- Real-time logs inside the app
+- Download, Upload, and Total usage counters
+- Portable release, no installation required
+- No terminal or PowerShell usage required for normal users
 
 ## Screenshot
 
-Add your screenshot after you place it in the repository.
+Add your screenshot here:
 
 ```md
-![App Screenshot](./docs/screenshot.png)
+![WireProxy GUI Screenshot](docs/screenshot.png)
 ```
 
-## App icon
+## Requirements
 
-Recommended path:
+- Windows 10 or Windows 11
+- A valid WireGuard `.conf` file
+- `wireproxy.exe`, included in the release package
 
-```text
-src/WireProxyGui/Assets/app.ico
-```
+## Download
 
-## Project structure
+Download the latest ZIP file from the **Releases** section.
 
-```text
-WireProxyGui/
-├─ src/
-│  └─ WireProxyGui/
-│     ├─ App.xaml
-│     ├─ App.xaml.cs
-│     ├─ MainWindow.xaml
-│     ├─ MainWindow.xaml.cs
-│     ├─ WireProxyGui.csproj
-│     ├─ Models/
-│     ├─ Services/
-│     ├─ Assets/
-│     │  └─ app.ico
-│     └─ wireproxy.exe
-├─ docs/
-│  └─ screenshot.png
-├─ README.md
-├─ README.fa.md
-└─ .github/
-   └─ workflows/
-      └─ build-release.yml
-```
-
-## Requirements for local development
-
-- Windows
-- .NET 8 SDK
-- `wireproxy.exe`
-
-## Run locally
-
-From the project root:
-
-```powershell
-dotnet restore .\src\WireProxyGui\WireProxyGui.csproj
-dotnet build .\src\WireProxyGui\WireProxyGui.csproj -c Release
-dotnet run --project .\src\WireProxyGui\WireProxyGui.csproj
-```
-
-## Build a portable Windows release locally
-
-```powershell
-dotnet publish .\src\WireProxyGui\WireProxyGui.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
-```
-
-The published files will usually be located in:
-
-```text
-src\WireProxyGui\bin\Release\net8.0-windows\win-x64\publish\
-```
-
-## Recommended release package
-
-Since the GUI depends on `wireproxy.exe`, the recommended user download is a ZIP file such as:
+Recommended package:
 
 ```text
 WireProxyGui-win-x64.zip
 ├─ WireProxyGui.exe
 ├─ wireproxy.exe
-├─ README.txt
+└─ README.txt
 ```
 
-This is the best release model because:
+## How to Use
 
-- users download one ZIP
-- users extract it anywhere
-- users run `WireProxyGui.exe`
-- no build tools or terminal usage are needed
+1. Download the release ZIP.
+2. Extract the ZIP file.
+3. Run `WireProxyGui.exe`.
+4. Select your WireGuard `.conf` file.
+5. Set HTTP and SOCKS5 bind IP and port if needed.
+6. Click **Run**.
+7. Configure your browser or app to use the proxy.
 
-## GitHub release recommendation
-
-For public sharing, publish a **ZIP release**, not only the EXE by itself.
-
-### Recommended release title
+Default proxy examples:
 
 ```text
-v1.0.0
+HTTP   127.0.0.1:25345
+SOCKS5 127.0.0.1:25344
 ```
 
-### Recommended release assets
+## Using the Proxy in Apps
 
-- `WireProxyGui-win-x64.zip`
+You can use the generated local proxy in apps that support HTTP or SOCKS5 proxy settings.
 
-### Recommended short release description
+Examples:
+
+- Browser proxy settings
+- Firefox proxy settings
+- Telegram proxy settings
+- Proxy management tools
+- Apps that support SOCKS5 or HTTP proxy
+
+## Sharing Proxy on Local Network
+
+If you want another device on your local network to use the proxy, set the bind IP to your computer local IP instead of `127.0.0.1`.
+
+Example:
 
 ```text
-First public release of WireProxy GUI.
-
-Included:
-- WireProxyGui.exe
-- wireproxy.exe
-
-Features:
-- WireGuard .conf file selection
-- HTTP and SOCKS5 bind setup
-- My IP helper buttons
-- Run, Restart, and Terminate controls
-- Live logs inside the GUI
-
-Usage:
-Extract the ZIP file and run WireProxyGui.exe.
+192.168.1.10:25345
 ```
 
-## Git setup
+Then configure the other device to use that IP and port as its proxy.
 
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git push -u origin main
+Make sure your firewall allows the selected port.
+
+## Logs and Usage
+
+The app shows live logs and basic traffic counters.
+
+Log colors:
+
+- Green: resolve or DNS related logs
+- Red: errors, timeouts, or handshake issues
+- Blue: normal information
+
+Usage counters:
+
+- Download
+- Upload
+- Total
+
+These counters represent traffic passing through the active `wireproxy` connection, not total Windows system traffic.
+
+## Important Notes
+
+- This app is not a full system VPN client.
+- Only apps configured to use the HTTP or SOCKS5 proxy will use this connection.
+- `wireproxy.exe` is required for the current version.
+- Keep `WireProxyGui.exe` and `wireproxy.exe` in the same folder.
+- Your WireGuard `.conf` file is selected locally and is not uploaded anywhere by this app.
+
+## Project Structure
+
+```text
+WireProxyGui/
+├─ src/
+│  └─ WireProxyGui/
+│     ├─ Models/
+│     ├─ Services/
+│     ├─ Assets/
+│     ├─ App.xaml
+│     ├─ App.xaml.cs
+│     ├─ MainWindow.xaml
+│     ├─ MainWindow.xaml.cs
+│     ├─ WireProxyGui.csproj
+│     └─ wireproxy.exe
+├─ docs/
+│  └─ screenshot.png
+├─ README.md
+└─ README.fa.md
 ```
 
-## Create a release tag
+## Build from Source
 
-```bash
-git tag v1.0.0
-git push origin v1.0.0
+Requirements:
+
+- Windows
+- .NET 8 SDK
+
+Build and publish:
+
+```powershell
+dotnet publish .\src\WireProxyGui\WireProxyGui.csproj -c Release
 ```
 
-## Open source goal
+The published files will be created under:
 
-This project is structured so that:
-
-- normal users can use a portable EXE package
-- developers can clone the repository and modify the source code later
-
-## License
-
-Add your preferred open source license here, for example MIT.
+```text
+src\WireProxyGui\bin\Release\
+```
 
 ## Credits
 
-- RK Github: https://github.com/kohandelramin
-- `wireproxy` is a separate dependency used by this GUI
+- wireproxy: https://github.com/windtf/wireproxy
+- Built with WPF and .NET 8
+
+## License
+
+This project is open source. Check the repository license for details.
