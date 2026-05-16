@@ -1,0 +1,56 @@
+# Release information template
+
+## Recommended release type
+
+Publish a ZIP file, not only the EXE alone.
+
+## Recommended release asset name
+
+WireProxyGui-win-x64.zip
+
+## Recommended ZIP contents
+
+WireProxyGui-win-x64.zip
+├─ WireProxyGui.exe
+├─ wireproxy.exe
+├─ README.txt
+
+## Recommended GitHub release title
+
+v1.0.0
+
+## Recommended GitHub release description, English
+
+First public release of WireProxy GUI.
+
+Included:
+- WireProxyGui.exe
+- wireproxy.exe
+
+Features:
+- WireGuard .conf file selection
+- HTTP and SOCKS5 bind setup
+- My IP helper buttons
+- Run, Restart, and Terminate controls
+- Live logs inside the GUI
+
+Usage:
+Extract the ZIP file and run WireProxyGui.exe.
+
+## Recommended GitHub release description, Persian
+
+اولین نسخه عمومی WireProxy GUI
+
+فایل‌های داخل بسته:
+- WireProxyGui.exe
+- wireproxy.exe
+
+قابلیت‌ها:
+- انتخاب فایل WireGuard .conf
+- تنظیم HTTP و SOCKS5
+- دکمه My IP
+- دکمه‌های Run ،Restart و Terminate
+- نمایش لاگ زنده داخل برنامه
+
+روش استفاده:
+فایل ZIP را از حالت فشرده خارج کنید و WireProxyGui.exe را اجرا کنید.

@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+publish/
+dist/
+wireproxy-runtime.log
+wireproxy-gui-settings.json
+startup-error.log

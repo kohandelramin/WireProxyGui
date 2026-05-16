@@ -1,0 +1,199 @@
+<Window x:Class="WireProxyGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WireProxyGui"
+        mc:Ignorable="d"
+        Title="WireProxy GUI"
+        Height="760"
+        Width="980"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanMinimize"
+        Background="#F3F4F6">
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="16"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="14"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" CornerRadius="12" Background="White" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="120"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBlock Text="WireGuard .conf file" FontSize="14" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                    <TextBox x:Name="ConfigPathTextBox" Height="34" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <Button x:Name="BrowseButton" Grid.Column="1" Margin="12,22,0,0" Height="34" Content="Browse" Click="BrowseButton_Click"/>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" CornerRadius="12" Background="White" Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="HTTP proxy" FontSize="16" FontWeight="SemiBold"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="88"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Bind IP" VerticalAlignment="Center"/>
+                        <TextBox x:Name="HttpIpTextBox" Grid.Column="1" Height="34" VerticalContentAlignment="Center"/>
+                        <Button x:Name="HttpMyIpButton" Grid.Column="2" Margin="12,0,0,0" Height="34" Content="My IP" Click="HttpMyIpButton_Click"/>
+                        <TextBlock Grid.Row="2" Text="Port" VerticalAlignment="Center"/>
+                        <TextBox x:Name="HttpPortTextBox" Grid.Row="2" Grid.Column="1" Height="34" VerticalContentAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="2" CornerRadius="12" Background="White" Padding="16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="14"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="SOCKS5 proxy" FontSize="16" FontWeight="SemiBold"/>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="88"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="12"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Bind IP" VerticalAlignment="Center"/>
+                        <TextBox x:Name="SocksIpTextBox" Grid.Column="1" Height="34" VerticalContentAlignment="Center"/>
+                        <Button x:Name="SocksMyIpButton" Grid.Column="2" Margin="12,0,0,0" Height="34" Content="My IP" Click="SocksMyIpButton_Click"/>
+                        <TextBlock Grid.Row="2" Text="Port" VerticalAlignment="Center"/>
+                        <TextBox x:Name="SocksPortTextBox" Grid.Row="2" Grid.Column="1" Height="34" VerticalContentAlignment="Center"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="4" CornerRadius="12" Background="White" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel>
+                    <TextBlock Text="State" Foreground="#6B7280" FontSize="12"/>
+                    <TextBlock x:Name="StatusTextBlock" Text="Stopped" FontWeight="SemiBold" FontSize="15"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Download" Foreground="#6B7280" FontSize="12"/>
+                    <TextBlock x:Name="DownloadTextBlock" Text="0 B" FontWeight="SemiBold" FontSize="15"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2">
+                    <TextBlock Text="Upload" Foreground="#6B7280" FontSize="12"/>
+                    <TextBlock x:Name="UploadTextBlock" Text="0 B" FontWeight="SemiBold" FontSize="15"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="3">
+                    <TextBlock Text="Total" Foreground="#6B7280" FontSize="12"/>
+                    <TextBlock x:Name="TotalTextBlock" Text="0 B" FontWeight="SemiBold" FontSize="15"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="6" CornerRadius="12" Background="White" Padding="12">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Logs" FontSize="15" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <DataGrid x:Name="LogsDataGrid"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          CanUserDeleteRows="False"
+                          CanUserResizeRows="False"
+                          IsReadOnly="True"
+                          HeadersVisibility="Column"
+                          RowHeaderWidth="0"
+                          GridLinesVisibility="Horizontal"
+                          SelectionMode="Single">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Level}" Value="Resolve">
+                                    <Setter Property="Foreground" Value="Green"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Level}" Value="Error">
+                                    <Setter Property="Foreground" Value="Red"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Level}" Value="Info">
+                                    <Setter Property="Foreground" Value="Blue"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Time" Binding="{Binding Timestamp, StringFormat=HH:mm:ss}" Width="110"/>
+                        <DataGridTextColumn Header="Level" Binding="{Binding Level}" Width="110"/>
+                        <DataGridTextColumn Header="Message" Binding="{Binding Message}" Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Border>
+
+        <Grid Grid.Row="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="RunButton" Content="Run" Width="90" Height="36" Click="RunButton_Click"/>
+            <Button x:Name="RestartButton" Grid.Column="2" Content="Restart" Width="90" Height="36" Click="RestartButton_Click"/>
+            <Button x:Name="TerminateButton" Grid.Column="4" Content="Terminate" Width="100" Height="36" Click="TerminateButton_Click"/>
+            <TextBlock Grid.Column="6" VerticalAlignment="Center">
+                <Hyperlink Click="HelpHyperlink_Click">Help</Hyperlink>
+            </TextBlock>
+            <Button x:Name="OpenFolderButton" Grid.Column="8" Content="Open folder" Width="100" Height="36" Click="OpenFolderButton_Click"/>
+            <Button x:Name="ExitButton" Grid.Column="10" Content="Exit" Width="80" Height="36" Click="ExitButton_Click"/>
+        </Grid>
+    </Grid>
+</Window>

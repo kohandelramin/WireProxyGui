@@ -1,0 +1,54 @@
+name: build-release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore .\src\WireProxyGui\WireProxyGui.csproj
+
+      - name: Build
+        run: dotnet build .\src\WireProxyGui\WireProxyGui.csproj -c Release --no-restore
+
+      - name: Publish
+        run: dotnet publish .\src\WireProxyGui\WireProxyGui.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+
+      - name: Prepare package
+        shell: powershell
+        run: |
+          $publishDir = ".\src\WireProxyGui\bin\Release\net8.0-windows\win-x64\publish"
+          $distDir = ".\dist"
+          New-Item -ItemType Directory -Force -Path $distDir | Out-Null
+          Copy-Item "$publishDir\*" $distDir -Recurse -Force
+          if (Test-Path ".\README.md") { Copy-Item ".\README.md" "$distDir\README.txt" -Force }
+          Compress-Archive -Path "$distDir\*" -DestinationPath ".\WireProxyGui-win-x64.zip" -Force
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: WireProxyGui-win-x64
+          path: .\WireProxyGui-win-x64.zip
+
+      - name: Publish release asset
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: .\WireProxyGui-win-x64.zip
