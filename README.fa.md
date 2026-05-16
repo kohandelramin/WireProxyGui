@@ -1,54 +1,117 @@
 # WireProxy GUI
 
-یک رابط گرافیکی ساده برای ویندوز جهت اجرا و مدیریت `wireproxy` با روند راه‌اندازی راحت‌تر.
+یک برنامه دسکتاپ ساده برای ویندوز جهت اجرای فایل تنظیمات WireGuard از طریق پروکسی HTTP و SOCKS5 با استفاده از `wireproxy`.
 
-## این برنامه چه کاری انجام می‌دهد
-
-WireProxy GUI به کاربر کمک می‌کند تا:
-
-- فایل WireGuard با پسوند `.conf` را انتخاب کند
-- تنظیمات Bind IP و Port برای HTTP و SOCKS5 را انجام دهد
-- بدون استفاده از ترمینال، `wireproxy` را اجرا یا متوقف کند
-- لاگ‌ها را به صورت زنده داخل خود برنامه ببیند
-- فرایند را با دکمه‌های Run ،Restart و Terminate کنترل کند
-
-## نکته مهم
-
-این برنامه فقط یک رابط گرافیکی برای `wireproxy` است.
-
-این GUI به تنهایی و به صورت مستقل کار نمی‌کند.
-برای اجرا، لازم است فایل `wireproxy.exe` کنار فایل اجرایی برنامه قرار داشته باشد، مگر اینکه بعدا ساختار پروژه را تغییر دهید و آن قابلیت را داخل برنامه ادغام کنید.
-
-پس بسته نهایی مناسب برای کاربران باید شامل این دو فایل باشد:
-
-- `WireProxyGui.exe`
-- `wireproxy.exe`
+WireProxy GUI برای کاربرانی ساخته شده که می‌خواهند اتصال WireGuard را فقط برای بعضی برنامه‌ها یا مرورگرها استفاده کنند، بدون اینکه کل سیستم ویندوز از VPN عبور کند.
 
 ## قابلیت‌ها
 
+- رابط گرافیکی برای ویندوز
 - انتخاب فایل WireGuard با پسوند `.conf`
-- تنظیم Bind IP و Port برای HTTP
-- تنظیم Bind IP و Port برای SOCKS5
-- دکمه **My IP** برای پر کردن خودکار IP سیستم
+- پشتیبانی از پروکسی HTTP
+- پشتیبانی از پروکسی SOCKS5
+- تشخیص IP محلی با دکمه‌های **My IP**
 - دکمه‌های Run ،Restart و Terminate
 - نمایش لاگ زنده داخل برنامه
-- سورس متن باز برای توسعه و تغییرات بعدی
+- نمایش میزان Download ،Upload و Total
+- نسخه قابل حمل، بدون نیاز به نصب
+- بدون نیاز به ترمینال یا PowerShell برای کاربران عادی
 
-## اسکرین‌شات
+## تصویر برنامه
 
-بعد از قرار دادن تصویر در ریپو، این بخش را استفاده کنید.
+تصویر برنامه را اینجا اضافه کنید:
 
 ```md
-![تصویر برنامه](./docs/screenshot.png)
+![تصویر WireProxy GUI](docs/screenshot.png)
 ```
 
-## آیکن برنامه
+## پیش‌نیازها
 
-مسیر پیشنهادی:
+- Windows 10 یا Windows 11
+- فایل معتبر WireGuard با پسوند `.conf`
+- فایل `wireproxy.exe` که داخل بسته انتشار قرار می‌گیرد
+
+## دانلود
+
+آخرین نسخه ZIP را از بخش **Releases** دانلود کنید.
+
+ساختار پیشنهادی بسته:
 
 ```text
-src/WireProxyGui/Assets/app.ico
+WireProxyGui-win-x64.zip
+├─ WireProxyGui.exe
+├─ wireproxy.exe
+└─ README.txt
 ```
+
+## روش استفاده
+
+1. فایل ZIP نسخه منتشر شده را دانلود کنید.
+2. فایل ZIP را از حالت فشرده خارج کنید.
+3. فایل `WireProxyGui.exe` را اجرا کنید.
+4. فایل WireGuard با پسوند `.conf` را انتخاب کنید.
+5. در صورت نیاز، IP و Port مربوط به HTTP و SOCKS5 را تنظیم کنید.
+6. روی **Run** کلیک کنید.
+7. مرورگر یا برنامه موردنظر را تنظیم کنید تا از پروکسی استفاده کند.
+
+نمونه پورت‌های پیش‌فرض:
+
+```text
+HTTP   127.0.0.1:25345
+SOCKS5 127.0.0.1:25344
+```
+
+## استفاده از پروکسی در برنامه‌ها
+
+می‌توانید از پروکسی محلی ساخته شده در برنامه‌هایی استفاده کنید که از HTTP یا SOCKS5 پشتیبانی می‌کنند.
+
+نمونه‌ها:
+
+- تنظیمات پروکسی مرورگر
+- تنظیمات پروکسی Firefox
+- تنظیمات پروکسی Telegram
+- ابزارهای مدیریت پروکسی
+- برنامه‌هایی که از SOCKS5 یا HTTP proxy پشتیبانی می‌کنند
+
+## اشتراک‌گذاری پروکسی در شبکه محلی
+
+اگر می‌خواهید دستگاه دیگری در شبکه محلی از این پروکسی استفاده کند، به جای `127.0.0.1` از IP محلی کامپیوتر خود استفاده کنید.
+
+مثال:
+
+```text
+192.168.1.10:25345
+```
+
+سپس روی دستگاه دیگر، همین IP و Port را به عنوان پروکسی وارد کنید.
+
+مطمئن شوید فایروال ویندوز اجازه استفاده از پورت انتخاب شده را می‌دهد.
+
+## لاگ‌ها و میزان مصرف
+
+برنامه لاگ‌های زنده و میزان مصرف ترافیک را نمایش می‌دهد.
+
+رنگ لاگ‌ها:
+
+- سبز: لاگ‌های مربوط به resolve یا DNS
+- قرمز: خطا، timeout یا مشکل handshake
+- آبی: اطلاعات عادی برنامه
+
+میزان مصرف:
+
+- Download
+- Upload
+- Total
+
+این اعداد مربوط به ترافیکی هستند که از اتصال فعال `wireproxy` عبور می‌کند، نه کل مصرف اینترنت ویندوز.
+
+## نکات مهم
+
+- این برنامه یک VPN کامل برای کل سیستم نیست.
+- فقط برنامه‌هایی که برای استفاده از HTTP یا SOCKS5 تنظیم شوند از این اتصال استفاده می‌کنند.
+- در نسخه فعلی، فایل `wireproxy.exe` لازم است.
+- فایل‌های `WireProxyGui.exe` و `wireproxy.exe` باید کنار هم باشند.
+- فایل WireGuard شما فقط به صورت محلی انتخاب می‌شود و توسط این برنامه جایی آپلود نمی‌شود.
 
 ## ساختار پروژه
 
@@ -56,135 +119,45 @@ src/WireProxyGui/Assets/app.ico
 WireProxyGui/
 ├─ src/
 │  └─ WireProxyGui/
+│     ├─ Models/
+│     ├─ Services/
+│     ├─ Assets/
 │     ├─ App.xaml
 │     ├─ App.xaml.cs
 │     ├─ MainWindow.xaml
 │     ├─ MainWindow.xaml.cs
 │     ├─ WireProxyGui.csproj
-│     ├─ Models/
-│     ├─ Services/
-│     ├─ Assets/
-│     │  └─ app.ico
 │     └─ wireproxy.exe
 ├─ docs/
 │  └─ screenshot.png
 ├─ README.md
-├─ README.fa.md
-└─ .github/
-   └─ workflows/
-      └─ build-release.yml
+└─ README.fa.md
 ```
 
-## پیش‌نیاز توسعه محلی
+## ساخت از سورس
+
+پیش‌نیازها:
 
 - ویندوز
 - .NET 8 SDK
-- فایل `wireproxy.exe`
 
-## اجرای محلی
-
-از ریشه پروژه این دستورات را اجرا کنید:
+دستور build و publish:
 
 ```powershell
-dotnet restore .\src\WireProxyGui\WireProxyGui.csproj
-dotnet build .\src\WireProxyGui\WireProxyGui.csproj -c Release
-dotnet run --project .\src\WireProxyGui\WireProxyGui.csproj
+dotnet publish .\src\WireProxyGui\WireProxyGui.csproj -c Release
 ```
 
-## ساخت خروجی قابل حمل ویندوز به صورت محلی
-
-```powershell
-dotnet publish .\src\WireProxyGui\WireProxyGui.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
-```
-
-خروجی نهایی معمولا در این مسیر ساخته می‌شود:
+فایل‌های خروجی در این مسیر ساخته می‌شوند:
 
 ```text
-src\WireProxyGui\bin\Release\net8.0-windows\win-x64\publish\
+src\WireProxyGui\bin\Release\
 ```
 
-## بسته پیشنهادی برای انتشار
+## ارجاع‌ها
 
-چون این رابط گرافیکی به `wireproxy.exe` وابسته است، پیشنهاد می‌شود فایل نهایی برای کاربر به صورت ZIP منتشر شود، مثلا:
-
-```text
-WireProxyGui-win-x64.zip
-├─ WireProxyGui.exe
-├─ wireproxy.exe
-├─ README.txt
-```
-
-این بهترین مدل انتشار است، چون:
-
-- کاربر فقط یک ZIP دانلود می‌کند
-- فایل را از حالت فشرده خارج می‌کند
-- `WireProxyGui.exe` را اجرا می‌کند
-- نیازی به build یا استفاده از ترمینال ندارد
-
-## پیشنهاد برای GitHub Release
-
-برای انتشار عمومی، بهتر است **فایل ZIP** منتشر کنید، نه فقط فایل EXE تنها.
-
-### عنوان پیشنهادی ریلیز
-
-```text
-v1.0.0
-```
-
-### فایل پیشنهادی برای ریلیز
-
-- `WireProxyGui-win-x64.zip`
-
-### متن کوتاه پیشنهادی برای توضیحات ریلیز
-
-```text
-اولین نسخه عمومی WireProxy GUI
-
-فایل‌های داخل بسته:
-- WireProxyGui.exe
-- wireproxy.exe
-
-قابلیت‌ها:
-- انتخاب فایل WireGuard .conf
-- تنظیم HTTP و SOCKS5
-- دکمه My IP
-- دکمه‌های Run ،Restart و Terminate
-- نمایش لاگ زنده داخل برنامه
-
-روش استفاده:
-فایل ZIP را از حالت فشرده خارج کنید و WireProxyGui.exe را اجرا کنید.
-```
-
-## راه‌اندازی Git
-
-```bash
-git init
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-git push -u origin main
-```
-
-## ساخت تگ نسخه
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-## هدف متن باز پروژه
-
-ساختار این پروژه به شکلی در نظر گرفته شده که:
-
-- کاربر عادی بتواند از خروجی EXE قابل حمل استفاده کند
-- توسعه‌دهنده بتواند ریپو را clone کند و بعدا کد را تغییر دهد
+- wireproxy: https://github.com/windtf/wireproxy
+- ساخته شده با WPF و .NET 8
 
 ## لایسنس
 
-لایسنس متن باز موردنظر خودتان را اینجا اضافه کنید، مثلا MIT.
-
-## سازنده و ارجاع
-
-- RK Github: https://github.com/kohandelramin
-- `wireproxy` یک وابستگی جداگانه است که این رابط گرافیکی از آن استفاده می‌کند
+این پروژه متن باز است. برای جزئیات، لایسنس موجود در ریپو را بررسی کنید.
