@@ -181,29 +181,35 @@ BindAddress = {socksIp}:{socksPort}
         _lastPosition = fs.Position;
     }
 
-    private static bool ShouldSkipLogLine(string line)
-    {
-        var trimmed = line.Trim();
+	private static bool ShouldSkipLogLine(string line)
+	{
+		var trimmed = line.Trim();
+		var lower = trimmed.ToLowerInvariant();
 
-        if (string.IsNullOrWhiteSpace(trimmed))
-        {
-            return true;
-        }
+		if (string.IsNullOrWhiteSpace(trimmed))
+		{
+			return true;
+		}
 
-        return
-            trimmed.StartsWith("private_key=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("public_key=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("preshared_key=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("listen_port=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("protocol_version=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("endpoint=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("last_handshake_time_sec=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("last_handshake_time_nsec=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("tx_bytes=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("rx_bytes=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("persistent_keepalive_interval=", StringComparison.OrdinalIgnoreCase) ||
-            trimmed.StartsWith("allowed_ip=", StringComparison.OrdinalIgnoreCase);
-    }
+		if (lower.Contains("health metric request"))
+		{
+			return true;
+		}
+
+		return
+			trimmed.StartsWith("private_key=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("public_key=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("preshared_key=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("listen_port=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("protocol_version=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("endpoint=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("last_handshake_time_sec=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("last_handshake_time_nsec=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("tx_bytes=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("rx_bytes=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("persistent_keepalive_interval=", StringComparison.OrdinalIgnoreCase) ||
+			trimmed.StartsWith("allowed_ip=", StringComparison.OrdinalIgnoreCase);
+	}
 
     public async Task<MetricsInfo> GetMetricsAsync(CancellationToken cancellationToken = default)
     {
