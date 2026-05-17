@@ -21,9 +21,7 @@ WireProxy GUI is designed for users who want to use a WireGuard connection with 
 
 Add your screenshot here:
 
-```md
-![WireProxy GUI Screenshot](https://github.com/kohandelramin/WireProxyGui/blob/main/docs/screenshot.png)
-```
+![WireProxy GUI Screenshot](docs/screenshot.png)
 
 ## Requirements
 
